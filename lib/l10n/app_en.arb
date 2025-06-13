@@ -1,0 +1,10 @@
+{
+  "title": "Percentage Calculator",
+  "calculate": "Calculate",
+  "reset": "Reset",
+  "valueHint": "Value (e.g., 2000)",
+  "percentHint": "Percent (e.g., 115)",
+  "history": "History",
+  "noHistory": "No history",
+  "errorMessage": "Values must be greater than zero"
+}

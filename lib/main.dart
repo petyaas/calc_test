@@ -1,7 +1,9 @@
 import 'package:calculator/view/calc_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'l10n/app_localizations.dart';
 import 'logic/bloc_logic.dart';
 
 
@@ -35,6 +37,12 @@ class _MyAppState extends State<MyApp> {
         theme: ThemeData.light(),
         darkTheme: ThemeData.dark(),
         themeMode: _themeMode,
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
         supportedLocales: const [
           Locale('en'),
           Locale('ru'),

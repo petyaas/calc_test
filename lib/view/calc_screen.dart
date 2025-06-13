@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../logic/bloc_logic.dart';
+import '../l10n/app_localizations.dart';
+import '../logic/calc_state.dart';
+import '../logic/calc_event.dart';
+import '../logic/calc_bloc.dart';
+import 'history_screen.dart';
 
 class CalculatorScreen extends StatefulWidget {
   final VoidCallback onToggleTheme;
@@ -40,11 +44,19 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('calc'),
+        title: Text(l10n.title),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.history),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => HistoryScreen()),
+            ),
+          ),
           IconButton(
             icon: const Icon(Icons.brightness_6),
             onPressed: widget.onToggleTheme,
@@ -58,7 +70,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
             TextField(
               controller: _valueController,
               decoration: InputDecoration(
-                labelText: 'value',
+                labelText: l10n.valueHint,
                 border: const OutlineInputBorder(),
               ),
               keyboardType: TextInputType.number,
@@ -67,7 +79,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
             TextField(
               controller: _percentController,
               decoration: InputDecoration(
-                labelText: 'precent',
+                labelText: l10n.percentHint,
                 border: const OutlineInputBorder(),
               ),
               keyboardType: TextInputType.number,
@@ -78,11 +90,11 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
               children: [
                 ElevatedButton(
                   onPressed: _onCalculate,
-                  child: Text('calc'),
+                  child: Text(l10n.calculate),
                 ),
                 OutlinedButton(
                   onPressed: _onReset,
-                  child: Text('reset'),
+                  child: Text(l10n.reset),
                 ),
               ],
             ),
@@ -93,7 +105,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                   return Text('100% = ${state.result.toStringAsFixed(2)}');
                 } else if (state is CalculatorError) {
                   return Text(
-                    'error',
+                    l10n.errorMessage,
                     style: const TextStyle(color: Colors.red),
                   );
                 } else {
